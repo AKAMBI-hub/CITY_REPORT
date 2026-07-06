@@ -1,0 +1,175 @@
+/* ════════════════════════════════════════════════
+   CityReport PWA — Design Tokens v2
+   ════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── Palette principale ── */
+  --lime:      #C8FF00;
+  --lime-dim:  #9FCC00;
+  --lime-deep: #5C7500;
+  --lime-glow: rgba(200,255,0,.12);
+  --lime-glow-strong: rgba(200,255,0,.22);
+
+  --red:       #FF3B30;
+  --red-dim:   rgba(255,59,48,.15);
+  --red-border:rgba(255,59,48,.3);
+
+  --orange:    #FF9500;
+  --orange-dim:rgba(255,149,0,.15);
+  --orange-border:rgba(255,149,0,.3);
+
+  --blue:      #0A84FF;
+  --blue-dim:  rgba(10,132,255,.15);
+  --blue-border:rgba(10,132,255,.3);
+
+  --purple:    #BF5AF2;
+  --purple-dim:rgba(191,90,242,.15);
+
+  --teal:      #32D74B;
+  --teal-dim:  rgba(50,215,75,.15);
+  --teal-border:rgba(50,215,75,.3);
+
+  /* ── Surfaces ── */
+  --dark:      #070910;
+  --card:      #0F1120;
+  --card-2:    #141628;
+  --card-3:    #1A1D30;
+  --overlay:   rgba(7,9,16,.88);
+
+  /* ── Bordures ── */
+  --border:        #1A1D2E;
+  --border-light:  #252840;
+  --border-strong: #313452;
+  --border-lime:   rgba(200,255,0,.25);
+
+  /* ── Texte ── */
+  --text:        #EEEEF5;
+  --text-muted:  #7A7C90;
+  --text-dim:    #3A3D52;
+  --text-lime:   #C8FF00;
+  --text-red:    #FF3B30;
+  --text-orange: #FF9500;
+
+  /* ── Statuts signalement ── */
+  --status-new:      #0A84FF;
+  --status-new-bg:   rgba(10,132,255,.12);
+  --status-progress: #FF9500;
+  --status-progress-bg: rgba(255,149,0,.12);
+  --status-done:     #32D74B;
+  --status-done-bg:  rgba(50,215,75,.12);
+  --status-rejected: #FF3B30;
+  --status-rejected-bg: rgba(255,59,48,.12);
+  --status-urgent:   #FF3B30;
+  --status-urgent-bg: rgba(255,59,48,.18);
+
+  /* ── Catégories signalement (couleurs distinctives) ── */
+  --cat-roads:    #FF9500;  /* Routes & voirie */
+  --cat-water:    #0A84FF;  /* Eau & assainissement */
+  --cat-waste:    #32D74B;  /* Déchets */
+  --cat-light:    #FFD60A;  /* Éclairage */
+  --cat-flood:    #30B0C7;  /* Inondation */
+  --cat-health:   #FF3B30;  /* Santé publique */
+  --cat-security: #BF5AF2;  /* Sécurité */
+  --cat-other:    #8E8E93;  /* Autre */
+
+  /* ── Typographies ── */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Type scale ── */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   17px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  40px;
+
+  /* ── Espacement ── */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Rayons ── */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-pill: 100px;
+
+  /* ── Navigation mobile ── */
+  --nav-height:    52px;
+  --bottom-height: 64px;
+  --safe-bottom:   env(safe-area-inset-bottom, 0px);
+
+  /* ── Transitions ── */
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:  120ms;
+  --dur-base:  220ms;
+  --dur-slow:  380ms;
+
+  /* ── Shadows ── */
+  --shadow-card:  0 2px 12px rgba(0,0,0,.4);
+  --shadow-modal: 0 16px 64px rgba(0,0,0,.7);
+  --shadow-lime:  0 0 24px rgba(200,255,0,.35);
+
+  /* ── Z-index layers ── */
+  --z-base:    1;
+  --z-card:    10;
+  --z-overlay: 200;
+  --z-modal:   300;
+  --z-nav:     100;
+  --z-toast:   400;
+
+  /* ── Alias sémantiques utilisés dans les composants ── */
+  --accent:  #C8FF00;          /* = --lime */
+  --bg:      #070910;          /* = --dark */
+  --surface: #0F1120;          /* = --card */
+  --radius:  14px;             /* = --radius-md */
+  --font-ui: 'DM Sans', sans-serif; /* = --font-body */
+}
+
+/* ════════════════════════════════════════════════
+   THEME CLAIR
+   ════════════════════════════════════════════════ */
+
+html.theme-light {
+  --dark:   #F5F5F7;
+  --card:   #FFFFFF;
+  --card-2: #F2F2F7;
+  --card-3: #E5E5EA;
+  --overlay: rgba(245,245,247,.92);
+  --border:        #D1D1D6;
+  --border-light:  #E5E5EA;
+  --border-strong: #C7C7CC;
+  --text:        #1C1C1E;
+  --text-muted:  #6C6C70;
+  --text-dim:    #AEAEB2;
+  --shadow-card:  0 2px 12px rgba(0,0,0,.08);
+  --shadow-modal: 0 16px 64px rgba(0,0,0,.12);
+  /* Alias sémantiques mis à jour pour le mode clair */
+  --bg:      #F5F5F7;
+  --surface: #FFFFFF;
+}
+
+html.theme-light .map-water { opacity: .6 !important; }
+html.theme-light .heatmap-legend-gradient { background: linear-gradient(to right, #e8f5e9, #2e7d32) !important; }
+html.theme-light #splash { background: #F5F5F7 !important; }
+
+/* ── Data saver : polices système, pas de canvas animations ── */
+html.data-saver {
+  --font-display: system-ui, sans-serif;
+  --font-body:    system-ui, sans-serif;
+  --font-mono:    'Courier New', monospace;
+}
+html.data-saver canvas { display: none !important; }
+html.data-saver .ad-card { display: none !important; }
+html.data-saver .confetti-container { display: none !important; }
