@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CityReport — Signalez les problèmes de votre quartier à Cotonou et Abomey-Calavi. Application citoyenne gratuite.">
+  <title>CityReport — Signalez, suivez, agissez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <style>
+    .landing-page { background: #070910; color: #EEEEF5; font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+    .landing-page a { color: #C8FF00; }
+    .lp-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .lp-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+    .lp-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #C8FF00; letter-spacing: .06em; }
+    .lp-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 100px; font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer; border: none; font-family: inherit; }
+    .lp-btn-primary { background: #C8FF00; color: #070910; }
+    .lp-btn-secondary { background: transparent; color: #C8FF00; border: 1.5px solid #C8FF00; }
+    .lp-hero { padding: 80px 0 60px; text-align: center; }
+    .lp-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: #C8FF00; letter-spacing: .03em; margin-bottom: 16px; }
+    .lp-hero p { font-size: 18px; color: #7A7C90; max-width: 540px; margin: 0 auto 32px; line-height: 1.5; }
+    .lp-hero .lp-stats { display: flex; justify-content: center; gap: 48px; margin-top: 48px; }
+    .lp-hero .lp-stat { text-align: center; }
+    .lp-hero .lp-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #C8FF00; }
+    .lp-hero .lp-stat-label { font-size: 13px; color: #7A7C90; margin-top: 4px; }
+    .lp-section { padding: 80px 0; }
+    .lp-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #FFF; margin-bottom: 12px; letter-spacing: .02em; }
+    .lp-section .lp-sub { color: #7A7C90; max-width: 480px; margin-bottom: 40px; }
+    .lp-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .lp-feature { background: #0F1120; border: 1px solid #1A1D2E; border-radius: 14px; padding: 28px; }
+    .lp-feature i { font-size: 28px; color: #C8FF00; margin-bottom: 12px; display: block; }
+    .lp-feature h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #FFF; }
+    .lp-feature p { font-size: 14px; color: #7A7C90; line-height: 1.5; }
+    .lp-testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .lp-testimonial { background: #0F1120; border: 1px solid #1A1D2E; border-radius: 14px; padding: 28px; }
+    .lp-testimonial p { font-size: 14px; color: #EEEEF5; font-style: italic; line-height: 1.5; margin-bottom: 12px; }
+    .lp-testimonial .lp-author { font-size: 13px; color: #7A7C90; }
+    .lp-testimonial .lp-author strong { color: #C8FF00; }
+    .lp-cta { background: linear-gradient(135deg, #0F1120 0%, #1A1D30 100%); border-radius: 20px; padding: 60px; text-align: center; margin: 40px 0; }
+    .lp-cta h2 { font-size: 36px; margin-bottom: 12px; }
+    .lp-cta p { color: #7A7C90; margin-bottom: 24px; }
+    .lp-footer { padding: 32px 0; text-align: center; border-top: 1px solid #1A1D2E; }
+    .lp-footer p { font-size: 13px; color: #7A7C90; }
+    .lp-footer .lp-footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; }
+    .lp-footer .lp-footer-links a { font-size: 13px; color: #7A7C90; text-decoration: none; }
+    .lp-footer .lp-footer-links a:hover { color: #C8FF00; }
+    @media (max-width: 640px) {
+      .lp-hero h1 { font-size: 40px; }
+      .lp-hero .lp-stats { gap: 24px; flex-wrap: wrap; }
+      .lp-cta { padding: 40px 24px; }
+      .lp-header { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body class="landing-page">
+  <div class="lp-container">
+    <header class="lp-header">
+      <span class="lp-logo">CityReport</span>
+      <div>
+        <a href="/" class="lp-btn lp-btn-primary"><i class="ti ti-apps" aria-hidden="true"></i> Ouvrir l'app</a>
+      </div>
+    </header>
+
+    <section class="lp-hero">
+      <h1>Votre quartier,<br>votre voix</h1>
+      <p>Signalez un nid-de-poule, un lampadaire éteint ou une inondation en 30 secondes. Suivez en temps réel l'avancement des travaux.</p>
+      <a href="/" class="lp-btn lp-btn-primary" style="font-size:16px;padding:14px 36px"><i class="ti ti-plus" aria-hidden="true"></i> Signaler un problème</a>
+      <div class="lp-stats">
+        <div class="lp-stat"><div class="lp-stat-num">1 200+</div><div class="lp-stat-label">Signalements traités</div></div>
+        <div class="lp-stat"><div class="lp-stat-num">5</div><div class="lp-stat-label">Communes couvertes</div></div>
+        <div class="lp-stat"><div class="lp-stat-num">92%</div><div class="lp-stat-label">Taux de résolution</div></div>
+      </div>
+    </section>
+
+    <section class="lp-section">
+      <h2>Comment ça marche</h2>
+      <p class="lp-sub">Trois étapes simples pour faire entendre votre voix.</p>
+      <div class="lp-features">
+        <div class="lp-feature">
+          <i class="ti ti-camera"></i>
+          <h3>1. Photographiez</h3>
+          <p>Prenez une photo du problème et ajoutez une description. Besoin d'être anonyme ? Activez le mode incognito.</p>
+        </div>
+        <div class="lp-feature">
+          <i class="ti ti-map-pin"></i>
+          <h3>2. Géo-localisez</h3>
+          <p>Indiquez l'emplacement précis sur la carte. L'application détecte automatiquement votre position.</p>
+        </div>
+        <div class="lp-feature">
+          <i class="ti ti-list-check"></i>
+          <h3>3. Suivez</h3>
+          <p>Recevez des notifications à chaque changement de statut. Votez pour les signalements importants de votre quartier.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-section">
+      <h2>Ils nous font confiance</h2>
+      <p class="lp-sub">Ce que disent les citoyens et les élus.</p>
+      <div class="lp-testimonials">
+        <div class="lp-testimonial">
+          <p>"Depuis que j'utilise CityReport, le caniveau devant chez moi a été nettoyé en 48h. Incroyable !"</p>
+          <div class="lp-author"><strong>Marie K.</strong> — Cotonou</div>
+        </div>
+        <div class="lp-testimonial">
+          <p>"Un outil formidable pour la transparence. Nous voyons en temps réel ce qui se passe dans notre commune."</p>
+          <div class="lp-author"><strong>Jean-Baptiste A.</strong> — Élu local</div>
+        </div>
+        <div class="lp-testimonial">
+          <p>"La carte interactive est très pratique pour savoir quels problèmes sont en cours de traitement dans le quartier."</p>
+          <div class="lp-author"><strong>Esther D.</strong> — Abomey-Calavi</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-cta">
+      <h2>Prêt à agir ?</h2>
+      <p>Rejoignez les 3 500 citoyens qui améliorent leur quartier chaque jour.</p>
+      <a href="/" class="lp-btn lp-btn-primary" style="font-size:16px;padding:14px 36px"><i class="ti ti-rocket" aria-hidden="true"></i> Commencer maintenant</a>
+    </section>
+
+    <footer class="lp-footer">
+      <div class="lp-footer-links">
+        <a href="/">Application</a>
+        <a href="/#/faq">FAQ</a>
+        <a href="/#/contact">Contact</a>
+      </div>
+      <p>&copy; 2026 CityReport — Signalement citoyen. Cotonou &amp; Abomey-Calavi.</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#070910">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CityReport">
+  <meta name="description" content="Signalez les problèmes de votre quartier à Cotonou et Abomey-Calavi. Routes dégradées, éclairage défaillant, inondations — en 30 secondes.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CityReport — Signalement citoyen">
+  <meta property="og:description" content="Signalez les problèmes de votre quartier. Votre mairie vous écoute.">
+  <meta property="og:type" content="website">
+
+  <title>CityReport</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Icônes standard -->
+  <link rel="icon" type="image/png" sizes="48x48"  href="/icons/icon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96"  href="/icons/icon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon"             href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+
+  <!-- Apple Splash Screens (portrait iPhone) -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" media="(device-width:390px)"  href="/icons/splash-390.png">
+  <link rel="apple-touch-startup-image" media="(device-width:375px)"  href="/icons/splash-375.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tabler Icons (outline) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+
+  <!-- FedaPay Checkout SDK (paiement) -->
+  <script src="https://cdn.fedapay.com/checkout.js?v=v1.1.7"></script>
+
+  <!-- Styles CityReport -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* Styles spécifiques à la page shell */
+    #root { min-height: 100dvh; }
+
+    /* Desktop : centrer et simuler mobile */
+    @media (min-width: 431px) {
+      body { background: #030408; }
+      #root {
+        max-width: 430px;
+        margin: 0 auto;
+        box-shadow: 0 0 60px rgba(0,0,0,.8);
+        position: relative;
+      }
+    }
+
+    /* Skip link — accessible uniquement au clavier */
+    .skip-link {
+      position: absolute;
+      top: -100%; left: 8px;
+      background: #C8FF00; color: #070910;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 0 0 8px 8px;
+      z-index: 9999;
+      text-decoration: none;
+      transition: top .15s;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: 2px solid #C8FF00;
+      outline-offset: 2px;
+    }
+
+    /* Splash screen pendant le chargement */
+    #splash {
+      position: fixed; inset: 0;
+      background: #070910;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+      z-index: 9999;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+    #splash.hidden { opacity: 0; visibility: hidden; }
+    .splash-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: #C8FF00;
+      letter-spacing: .06em;
+      line-height: 1;
+    }
+    .splash-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #666880;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .splash-dot {
+      width: 6px; height: 6px;
+      background: #C8FF00;
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: .2; transform: scale(.8); }
+      50%       { opacity: 1;  transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash screen -->
+  <div id="splash" role="status" aria-label="Chargement de CityReport">
+    <p class="splash-logo">CR</p>
+    <p class="splash-tagline">Abomey-Calavi · Cotonou</p>
+    <div class="splash-dot"></div>
+  </div>
+
+  <!-- Point de montage de l'app -->
+  <div id="root" role="application" aria-label="CityReport"></div>
+
+  <!-- Scripts (ordre important : state → router → app) -->
+  <script src="/js/state.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/focus.js"></script>
+  <script src="/js/map.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/report.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/app.js"></script>
+
+  <script>
+    /* Masquer le splash quand l'app est prête */
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        if (splash) splash.classList.add('hidden');
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
