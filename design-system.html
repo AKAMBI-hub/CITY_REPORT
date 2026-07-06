@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CityReport — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body { padding: 24px; max-width: 800px; margin: 0 auto; }
+    .ds-section { margin-bottom: 48px; }
+    .ds-title { font-family: var(--font-display); font-size: 32px; color: var(--lime); margin-bottom: 4px; }
+    .ds-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-family: var(--font-mono); }
+    .ds-group { margin-bottom: 24px; }
+    .ds-label { font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; font-family: var(--font-mono); }
+    .ds-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+    .color-chip { width: 48px; height: 48px; border-radius: 10px; border: 1px solid rgba(255,255,255,.08); display: flex; align-items: flex-end; padding: 4px; }
+    .color-name { font-size: 9px; color: rgba(0,0,0,.6); font-family: monospace; }
+    .divider { height: 1px; background: var(--border); margin: 32px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="ds-section">
+    <p class="ds-title">CityReport</p>
+    <p class="ds-sub">Design System Reference — v2.0</p>
+  </div>
+
+  <!-- COULEURS -->
+  <div class="ds-section">
+    <p class="ds-label">Palette</p>
+    <div class="ds-row">
+      <div class="color-chip" style="background:#C8FF00"><span class="color-name">lime</span></div>
+      <div class="color-chip" style="background:#070910;border-color:#252840"><span class="color-name" style="color:rgba(255,255,255,.4)">dark</span></div>
+      <div class="color-chip" style="background:#0F1120;border-color:#252840"><span class="color-name" style="color:rgba(255,255,255,.3)">card</span></div>
+      <div class="color-chip" style="background:#FF3B30"><span class="color-name">red</span></div>
+      <div class="color-chip" style="background:#FF9500"><span class="color-name">orange</span></div>
+      <div class="color-chip" style="background:#0A84FF"><span class="color-name">blue</span></div>
+      <div class="color-chip" style="background:#32D74B"><span class="color-name">teal</span></div>
+      <div class="color-chip" style="background:#BF5AF2"><span class="color-name">purple</span></div>
+    </div>
+    <p class="ds-label" style="margin-top:20px">Catégories signalement</p>
+    <div class="ds-row">
+      <div class="color-chip" style="background:var(--cat-roads)"><span class="color-name">routes</span></div>
+      <div class="color-chip" style="background:var(--cat-water)"><span class="color-name" style="color:rgba(255,255,255,.7)">eau</span></div>
+      <div class="color-chip" style="background:var(--cat-waste)"><span class="color-name">déchets</span></div>
+      <div class="color-chip" style="background:var(--cat-light)"><span class="color-name">lumière</span></div>
+      <div class="color-chip" style="background:var(--cat-flood)"><span class="color-name">inond.</span></div>
+      <div class="color-chip" style="background:var(--cat-health)"><span class="color-name">santé</span></div>
+      <div class="color-chip" style="background:var(--cat-security)"><span class="color-name" style="color:rgba(255,255,255,.7)">sécu.</span></div>
+      <div class="color-chip" style="background:var(--cat-other)"><span class="color-name">autre</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TYPOGRAPHIE -->
+  <div class="ds-section">
+    <p class="ds-label">Typographie</p>
+    <p style="font-family:var(--font-display);font-size:48px;color:var(--text);line-height:1">CITYREPORT</p>
+    <p style="font-family:var(--font-display);font-size:32px;color:var(--lime);line-height:1;margin-top:4px">SIGNALEMENT CITOYEN</p>
+    <p style="font-size:17px;color:var(--text);margin-top:16px;font-weight:500">Signalez les problèmes de votre quartier</p>
+    <p style="font-size:15px;color:var(--text-muted);margin-top:4px">DM Sans 400 — Corps du texte, interface</p>
+    <p style="font-family:var(--font-mono);font-size:13px;color:var(--text-dim);margin-top:8px">#RTR-2024-001 · Abomey-Calavi · 14:32</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BOUTONS -->
+  <div class="ds-section">
+    <p class="ds-label">Boutons</p>
+    <div class="ds-row">
+      <button class="btn btn-primary"><i class="ti ti-plus"></i>Primary</button>
+      <button class="btn btn-secondary"><i class="ti ti-edit"></i>Secondary</button>
+      <button class="btn btn-ghost"><i class="ti ti-x"></i>Ghost</button>
+      <button class="btn btn-danger"><i class="ti ti-trash"></i>Danger</button>
+      <button class="btn btn-lime-outline">Lime outline</button>
+    </div>
+    <div class="ds-row" style="margin-top:8px">
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-primary btn-icon"><i class="ti ti-plus"></i></button>
+      <button class="btn btn-primary" disabled>Désactivé</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INPUTS -->
+  <div class="ds-section">
+    <p class="ds-label">Inputs</p>
+    <div style="display:grid;gap:16px;max-width:400px">
+      <div class="input-wrap">
+        <label class="input-label">Nom du quartier</label>
+        <input class="input" type="text" placeholder="Ex: Agla, Cadjehoun, Fidjrossè…">
+      </div>
+      <div class="input-wrap">
+        <label class="input-label">Description</label>
+        <textarea class="textarea" placeholder="Décrivez le problème en détail…"></textarea>
+      </div>
+      <div class="input-wrap">
+        <label class="input-label">Commune</label>
+        <div class="select-wrap">
+          <select class="select">
+            <option>Cotonou</option>
+            <option>Abomey-Calavi</option>
+            <option>Sèmè-Podji</option>
+            <option>Ouidah</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BADGES & STATUTS -->
+  <div class="ds-section">
+    <p class="ds-label">Badges</p>
+    <div class="ds-row">
+      <span class="badge badge-lime">Résolu</span>
+      <span class="badge badge-red">Urgent</span>
+      <span class="badge badge-orange">En cours</span>
+      <span class="badge badge-blue">Nouveau</span>
+      <span class="badge badge-teal">Validé</span>
+      <span class="badge badge-muted">Archivé</span>
+    </div>
+    <p class="ds-label" style="margin-top:16px">Statuts signalement</p>
+    <div class="ds-row">
+      <span class="badge status-new">Nouveau</span>
+      <span class="badge status-progress">En cours</span>
+      <span class="badge status-done">Résolu</span>
+      <span class="badge status-rejected">Rejeté</span>
+      <span class="badge status-urgent"><i class="ti ti-alert-triangle" style="font-size:11px"></i>Urgent</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CATÉGORIES -->
+  <div class="ds-section">
+    <p class="ds-label">Grille catégories signalement</p>
+    <div class="cat-grid" style="max-width:400px">
+      <div class="cat-item cat-roads">
+        <div class="cat-icon"><i class="ti ti-road"></i></div>
+        <span class="cat-label">Routes & voirie</span>
+      </div>
+      <div class="cat-item cat-water selected">
+        <div class="cat-icon"><i class="ti ti-droplet"></i></div>
+        <span class="cat-label">Eau & assainissement</span>
+      </div>
+      <div class="cat-item cat-waste">
+        <div class="cat-icon"><i class="ti ti-trash"></i></div>
+        <span class="cat-label">Déchets</span>
+      </div>
+      <div class="cat-item cat-light">
+        <div class="cat-icon"><i class="ti ti-bulb"></i></div>
+        <span class="cat-label">Éclairage public</span>
+      </div>
+      <div class="cat-item cat-flood">
+        <div class="cat-icon"><i class="ti ti-ripple"></i></div>
+        <span class="cat-label">Inondation</span>
+      </div>
+      <div class="cat-item cat-health">
+        <div class="cat-icon"><i class="ti ti-heart-rate-monitor"></i></div>
+        <span class="cat-label">Santé publique</span>
+      </div>
+      <div class="cat-item cat-security">
+        <div class="cat-icon"><i class="ti ti-shield"></i></div>
+        <span class="cat-label">Sécurité</span>
+      </div>
+      <div class="cat-item cat-other">
+        <div class="cat-icon"><i class="ti ti-dots"></i></div>
+        <span class="cat-label">Autre</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- STEPPER -->
+  <div class="ds-section">
+    <p class="ds-label">Stepper (flux signalement)</p>
+    <div class="stepper" style="max-width:400px">
+      <div class="step-item done">
+        <div class="step-dot"><i class="ti ti-check" style="font-size:13px"></i></div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-item active">
+        <div class="step-dot">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">4</div>
+        <div class="step-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TOGGLE -->
+  <div class="ds-section">
+    <p class="ds-label">Toggle switch</p>
+    <div style="max-width:400px">
+      <div class="toggle-wrap">
+        <div>
+          <p class="toggle-label">Notifications push</p>
+          <p class="toggle-sub">Recevoir les mises à jour de vos signalements</p>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked>
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+      <div class="divider-sm"></div>
+      <div class="toggle-wrap">
+        <div>
+          <p class="toggle-label">Mode anonyme</p>
+          <p class="toggle-sub">Signaler sans créer de compte</p>
+        </div>
+        <label class="toggle">
+          <input type="checkbox">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CARDS -->
+  <div class="ds-section">
+    <p class="ds-label">Cards</p>
+    <div style="display:grid;gap:12px;max-width:400px">
+      <div class="card">
+        <div class="flex-between mb-sm">
+          <span class="badge status-urgent"><i class="ti ti-alert-triangle" style="font-size:11px"></i>Urgent</span>
+          <span class="micro">#RTR-2024-042</span>
+        </div>
+        <p class="subheading">Route dégradée — Carrefour Vèdoko</p>
+        <p class="muted mt-sm">Grande fosse de 2m sur la voie principale, dangereuse pour les zémidjans.</p>
+        <div class="flex-between mt-md">
+          <div class="flex items-center flex-gap-sm">
+            <div class="dot dot-red"></div>
+            <span class="micro">Abomey-Calavi</span>
+          </div>
+          <span class="micro">Il y a 2h</span>
+        </div>
+      </div>
+      <div class="card card-lime">
+        <div class="flex-between mb-sm">
+          <span class="badge status-done">Résolu</span>
+          <span class="micro">#EAU-2024-018</span>
+        </div>
+        <p class="subheading">Fuite d'eau — Rue des Cocotiers</p>
+        <div class="progress-bar mt-md"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PROGRESS & DOTS -->
+  <div class="ds-section">
+    <p class="ds-label">Progress bars & indicateurs</p>
+    <div style="max-width:400px;display:grid;gap:12px">
+      <div>
+        <div class="flex-between mb-sm"><span class="muted">Routes réparées</span><span class="micro text-lime">78%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+      </div>
+      <div>
+        <div class="flex-between mb-sm"><span class="muted">Signalements urgents</span><span class="micro text-red">34%</span></div>
+        <div class="progress-bar"><div class="progress-fill red" style="width:34%"></div></div>
+      </div>
+    </div>
+    <div class="ds-row" style="margin-top:16px">
+      <div class="dot dot-lime"></div><span class="micro">En ligne</span>
+      <div class="dot dot-red" style="margin-left:16px"></div><span class="micro">Hors ligne</span>
+      <div class="dot dot-orange" style="margin-left:16px"></div><span class="micro">En attente</span>
+    </div>
+  </div>
+
+</body>
+</html>
