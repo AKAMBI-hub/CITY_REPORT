@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CityReport — Générateur d'icônes</title>
+  <style>
+    body { font-family: monospace; background: #070910; color: #C8FF00; padding: 24px; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    p { color: #666880; font-size: 13px; margin-bottom: 24px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+    .icon-preview { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .icon-preview span { font-size: 11px; color: #666880; }
+    canvas { border: 1px solid #1A1D2E; border-radius: 8px; }
+    button {
+      background: #C8FF00; color: #070910; border: none;
+      padding: 10px 24px; font-family: monospace; font-size: 14px;
+      font-weight: bold; border-radius: 8px; cursor: pointer; margin-right: 8px;
+    }
+    #log { margin-top: 16px; color: #32D74B; font-size: 12px; line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+<h1>CityReport — Générateur d'icônes</h1>
+<p>Génère toutes les icônes PNG nécessaires au manifest PWA. Téléchargez chaque fichier et placez-le dans /icons/</p>
+
+<div class="grid" id="previews"></div>
+
+<button onclick="downloadAll()">⬇ Télécharger tout</button>
+<button onclick="downloadAll(true)">⬇ Maskable uniquement</button>
+<div id="log"></div>
+
+<script>
+/* ── Tailles à générer ── */
+const SIZES = [48, 72, 96, 128, 144, 152, 192, 384, 512];
+const MASKABLE = [192, 512];
+const SHORTCUTS = [
+  { name: 'shortcut-report', icon: '+',  bg: '#C8FF00', fg: '#070910' },
+  { name: 'shortcut-suivi',  icon: '✓',  bg: '#0F1120', fg: '#C8FF00' },
+];
+
+/* ── Dessiner l'icône principale sur un canvas ── */
+function drawIcon(canvas, size, maskable = false) {
+  const ctx  = canvas.getContext('2d');
+  const s    = size;
+  const pad  = maskable ? s * 0.18 : s * 0.08;  /* zone safe maskable = 80% */
+
+  /* Fond */
+  ctx.fillStyle = '#070910';
+  if (maskable) {
+    /* Maskable : fond plein carré */
+    ctx.fillRect(0, 0, s, s);
+  } else {
+    /* Standard : coins arrondis */
+    const r = s * 0.22;
+    ctx.beginPath();
+    ctx.moveTo(r, 0); ctx.lineTo(s-r, 0);
+    ctx.quadraticCurveTo(s, 0, s, r);
+    ctx.lineTo(s, s-r); ctx.quadraticCurveTo(s, s, s-r, s);
+    ctx.lineTo(r, s); ctx.quadraticCurveTo(0, s, 0, s-r);
+    ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  /* Point lime (accent) */
+  const dotR  = (s - pad*2) * 0.09;
+  const dotX  = pad + (s - pad*2) * 0.72;
+  const dotY  = pad + (s - pad*2) * 0.28;
+  ctx.beginPath();
+  ctx.arc(dotX, dotY, dotR, 0, Math.PI*2);
+  ctx.fillStyle = '#C8FF00';
+  ctx.fill();
+
+  /* Halo lime autour du point */
+  const grad = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, dotR*3);
+  grad.addColorStop(0, 'rgba(200,255,0,.2)');
+  grad.addColorStop(1, 'rgba(200,255,0,0)');
+  ctx.beginPath();
+  ctx.arc(dotX, dotY, dotR*3, 0, Math.PI*2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  /* Texte "CR" */
+  const inner = s - pad*2;
+  const fs    = inner * 0.38;
+  ctx.fillStyle = '#EEEEF5';
+  ctx.font      = `bold ${fs}px 'Arial Black', sans-serif`;
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('CR', s/2 - inner*0.04, s/2 + inner*0.03);
+
+  /* Ligne décorative sous "CR" */
+  const lineW = inner * 0.36;
+  const lineY = s/2 + inner*0.25;
+  const lineH = Math.max(1, s*0.02);
+  ctx.fillStyle = '#C8FF00';
+  ctx.fillRect(s/2 - lineW/2, lineY, lineW, lineH);
+}
+
+/* ── Dessiner une icône shortcut ── */
+function drawShortcut(canvas, size, cfg) {
+  const ctx = canvas.getContext('2d');
+  const s   = size;
+  const r   = s * 0.22;
+
+  ctx.fillStyle = cfg.bg;
+  ctx.beginPath();
+  ctx.moveTo(r,0); ctx.lineTo(s-r,0);
+  ctx.quadraticCurveTo(s,0,s,r);
+  ctx.lineTo(s,s-r); ctx.quadraticCurveTo(s,s,s-r,s);
+  ctx.lineTo(r,s); ctx.quadraticCurveTo(0,s,0,s-r);
+  ctx.lineTo(0,r); ctx.quadraticCurveTo(0,0,r,0);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = cfg.fg;
+  ctx.font = `bold ${s*0.5}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(cfg.icon, s/2, s/2);
+}
+
+/* ── Générer la preview ── */
+const previews = document.getElementById('previews');
+const canvases = {};
+
+SIZES.forEach(size => {
+  ['', '-maskable'].forEach(suffix => {
+    if (suffix === '-maskable' && !MASKABLE.includes(size)) return;
+    const key    = `icon${suffix}-${size}`;
+    const name   = `icon${suffix}-${size}.png`;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    canvases[name] = canvas;
+
+    drawIcon(canvas, size, suffix === '-maskable');
+
+    const preview = document.createElement('div');
+    preview.className = 'icon-preview';
+    const display = Math.min(size, 96);
+    preview.innerHTML = `<span>${name}</span>`;
+    const img = new Image();
+    img.src = canvas.toDataURL();
+    img.width = img.height = display;
+    img.style.borderRadius = suffix ? '50%' : '12px';
+    img.style.border = '1px solid #1A1D2E';
+    preview.prepend(img);
+    previews.appendChild(preview);
+  });
+});
+
+/* Shortcuts */
+SHORTCUTS.forEach(cfg => {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 96;
+  canvases[`${cfg.name}.png`] = canvas;
+  drawShortcut(canvas, 96, cfg);
+
+  const preview = document.createElement('div');
+  preview.className = 'icon-preview';
+  const img = new Image();
+  img.src = canvas.toDataURL();
+  img.width = img.height = 96;
+  preview.innerHTML = `<span>${cfg.name}.png</span>`;
+  preview.prepend(img);
+  previews.appendChild(preview);
+});
+
+/* ── Téléchargement ── */
+function downloadAll(maskableOnly = false) {
+  const log = document.getElementById('log');
+  log.textContent = '';
+  let count = 0;
+
+  Object.entries(canvases).forEach(([name, canvas]) => {
+    if (maskableOnly && !name.includes('maskable')) return;
+    setTimeout(() => {
+      canvas.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href     = URL.createObjectURL(blob);
+        a.download = name;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        log.textContent += `✓ ${name} téléchargé\n`;
+      }, 'image/png');
+    }, count * 120);
+    count++;
+  });
+
+  setTimeout(() => {
+    log.textContent += `\n→ Placer tous ces fichiers dans /icons/`;
+  }, count * 120 + 200);
+}
+</script>
+</body>
+</html>
